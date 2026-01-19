@@ -9,6 +9,8 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@absreim/react-bootstrap-data-grid": "^1.2.2",
+    "bootstrap": "^5.3.8",
     "next": "16.1.3",
     "react": "19.2.3",
     "react-dom": "19.2.3"
@@ -20,6 +22,7 @@
     "babel-plugin-react-compiler": "1.0.0",
     "eslint": "^9",
     "eslint-config-next": "16.1.3",
+    "sass": "^1.97.2",
     "typescript": "^5"
   }
 }
