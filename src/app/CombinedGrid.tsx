@@ -2,10 +2,10 @@
 
 import Grid, {
     ColDef,
-    EditableTableFilterState,
+    EditableTableFilterState, EditModel,
     FilterModel,
     GridPaginationState,
-    RowDef, SingleSelectModel, SortColDef, TableSortModel
+    RowDef, SingleSelectModel, SortColDef, TableSortModel, UpdateCallbackGenerator
 } from "@absreim/react-bootstrap-data-grid";
 import {FC, useMemo, useState} from "react";
 
@@ -29,7 +29,7 @@ const cols: ColDef[] = [
     },
 ];
 
-const rows: RowDef[] = [
+const initRows: RowDef[] = [
     {
         number: 8,
         version: "4.1.1.6758295",
@@ -78,6 +78,24 @@ const rows: RowDef[] = [
 ];
 
 const CombinedGrid: FC = () => {
+    const [rows, setRows] = useState<RowDef[]>(initRows.slice());
+    const getUpdateCallback: UpdateCallbackGenerator =
+        (origIndex) => (rowDef) => {
+            const newRows = rows.slice();
+            newRows[origIndex] = rowDef;
+            setRows(newRows);
+        };
+    const getDeleteCallback: (origIndex: number) => () => void =
+        (origIndex) => () => {
+            if (window.confirm("Are you sure you want to delete this row?")) {
+                setRows(rows.toSpliced(origIndex, 1));
+            }
+        };
+    const editModel: EditModel = {
+        getUpdateCallback,
+        getDeleteCallback
+    }
+
     const [tableFilterState, setTableFilterState] =
         useState<EditableTableFilterState>({
             number: {
@@ -135,7 +153,7 @@ const CombinedGrid: FC = () => {
     }), [selected]);
 
     return <Grid rows={rows} cols={cols} filterModel={filterModel} pagination={paginationState}
-                 sortModel={tableSortModel} selectModel={selectModel}/>;
+                 sortModel={tableSortModel} selectModel={selectModel} editModel={editModel}/>;
 };
 
 export default CombinedGrid;

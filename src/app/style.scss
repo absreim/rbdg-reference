@@ -1,3 +1,5 @@
+// --- Bootstrap imports ---
+
 // Configuration
 @import "~bootstrap/scss/functions";
 @import "~bootstrap/scss/variables";
@@ -14,7 +16,12 @@
 @import "~bootstrap/scss/buttons";
 @import "~bootstrap/scss/pagination";
 
+// Helpers
+@import "~bootstrap/scss/helpers";
+
 // Utilities
 @import "~bootstrap/scss/utilities/api";
+
+// --- End Bootstrap imports ---
 
 @import "@absreim/react-bootstrap-data-grid/style";
